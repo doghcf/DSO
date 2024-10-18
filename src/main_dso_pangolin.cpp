@@ -371,8 +371,6 @@ int main( int argc, char** argv )
 	}
 
 
-
-
 	int lstart=start;
 	int lend = end;
 	int linc = 1;
@@ -385,16 +383,11 @@ int main( int argc, char** argv )
 		lend = start;
 		linc = -1;
 	}
-
-
+	
 
 	FullSystem* fullSystem = new FullSystem();
 	fullSystem->setGammaFunction(reader->getPhotometricGamma());
 	fullSystem->linearizeOperation = (playbackSpeed==0);
-
-
-
-
 
 
 

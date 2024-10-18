@@ -65,9 +65,6 @@ public:
 	float weights[MAX_RES_PER_POINT];	//!< 原图上pattern对应的权重(与梯度成反比)
 
 
-
-
-
 	Mat22f gradH;				//!< 图像梯度hessian矩阵
 	Vec2f gradH_ev;
 	Mat22f gradH_eig;
