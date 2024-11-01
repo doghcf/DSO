@@ -53,5 +53,6 @@
         "algorithm": "cpp",
         "strstream": "cpp",
         "cfenv": "cpp"
-    }
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

@@ -282,11 +282,12 @@ namespace dso
 			ow->pushLiveFrame(fh);
 
 		FrameHessian *lastF = coarseTracker->lastRef; // 参考帧
-
 		AffLight aff_last_2_l = AffLight(0, 0);
-		//[ ***step 1*** ] 设置不同的运动状态
+
+		//[ ***step 1*** ] 构造位姿假设
 		std::vector<SE3, Eigen::aligned_allocator<SE3>> lastF_2_fh_tries;
 		printf("size: %d \n", lastF_2_fh_tries.size());
+		
 		if (allFrameHistory.size() == 2)
 			for (unsigned int i = 0; i < lastF_2_fh_tries.size(); i++)
 				lastF_2_fh_tries.push_back(SE3()); //? 这个size()不应该是0么

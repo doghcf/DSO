@@ -11,10 +11,7 @@ thirdparty/libzip-1.1.1
 *.ipch
 *.bin
 Euroc/EUROC.txt
-.vscode
 .idea
 cmake-build-debug
 *.txt
-.vscode/*
-.vscode/launch.json
-.vscode/settings.json
+/.vscode/
