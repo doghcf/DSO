@@ -14,4 +14,5 @@ Euroc/EUROC.txt
 .idea
 cmake-build-debug
 *.txt
-/.vscode/
+/.vscode/settings.json
+.vscode/*
