@@ -398,7 +398,7 @@ namespace dso
 					   coarseTracker->lastResiduals[4]);
 			}
 
-			//[ ***step 3*** ] 如果跟踪正常, 并且0层残差比最好的还好留下位姿, 保存最好的每一层的能量值
+			//[ ***step 3*** ] 如果跟踪正常, 并且0层残差比最好的还好,留下位姿, 保存最好的每一层的能量值
 			// do we have a new winner?
 			if (trackingIsGood && std::isfinite((float)coarseTracker->lastResiduals[0]) && !(coarseTracker->lastResiduals[0] >= achievedRes[0]))
 			{
