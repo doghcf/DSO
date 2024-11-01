@@ -96,7 +96,7 @@ namespace dso
 		if (!snapped) //! snapped应该指的是位移足够大了，不够大就重新优化
 		{
 			// 初始化
-			thisToNext.translation().setZero();
+			thisToNext.translation().setZero();		// translation()返回变换矩阵的平移部分
 			for (int lvl = 0; lvl < pyrLevelsUsed; lvl++)
 			{
 				int npts = numPoints[lvl];
@@ -130,9 +130,10 @@ namespace dso
 			Mat88f H, Hsc;
 			Vec8f b, bsc;
 			resetPoints(lvl); // 这里对顶层进行初始化!
-							  //[ ***step 4*** ] 迭代之前计算能量, Hessian等
+
+			//[ ***step 4*** ] 迭代之前计算能量, Hessian等
 			Vec3f resOld = calcResAndGS(lvl, H, b, Hsc, bsc, refToNew_current, refToNew_aff_current, false);
-			applyStep(lvl); // 新的能量付给旧的
+			applyStep(lvl); // 新的能量赋给旧的
 
 			float lambda = 0.1;
 			float eps = 1e-4;
@@ -650,7 +651,7 @@ namespace dso
 		return Vec3f(couplingWeight * E.A1m[0], couplingWeight * E.A1m[1], E.num);
 	}
 
-	//* 使用最近点来更新每个点的iR, smooth的感觉
+	//* 使用neighbour逆深度的中位数来更新每个点的iR, smooth的感觉
 	void CoarseInitializer::optReg(int lvl)
 	{
 		int npts = numPoints[lvl];
@@ -816,9 +817,9 @@ namespace dso
 		for (int lvl = 0; lvl < pyrLevelsUsed; lvl++)
 		{
 			//[ ***step 2*** ] 针对不同层数选择大梯度像素, 第0层比较复杂1d, 2d, 4d大小block来选择3个层次的像素
-			sel.currentPotential = 3; // 设置网格大小，3*3大小格
-			int npts;				  // 选择的像素数目
-			if (lvl == 0)			  // 第0层提取特征像素
+			sel.currentPotential = 3; 	// 设置网格大小，3*3大小格
+			int npts;				  	// 选择的像素数目
+			if (lvl == 0)			  	// 第0层提取特征像素
 				npts = sel.makeMaps(firstFrame, statusMap, densities[lvl] * w[0] * h[0], 1, false, 2);
 			else // 其它层则选出goodpoints
 				npts = makePixelStatus(firstFrame->dIp[lvl], statusMapB, w[lvl], h[lvl], densities[lvl] * w[0] * h[0]);
