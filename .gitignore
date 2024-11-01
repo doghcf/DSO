@@ -13,6 +13,4 @@ thirdparty/libzip-1.1.1
 Euroc/EUROC.txt
 .idea
 cmake-build-debug
-*.txt
-/.vscode/settings.json
 .vscode/*
