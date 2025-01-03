@@ -893,14 +893,14 @@ namespace dso
 				Vec2 refToFh = AffLight::fromToVecExposure(coarseTracker->lastRef->ab_exposure, fh->ab_exposure,
 														   coarseTracker->lastRef_aff_g2l, fh->shell->aff_g2l);
 
+				float delta = setting_kfGlobalWeight * setting_maxShiftWeightT * sqrtf((double)tres[1]) / (wG[0] + hG[0]) +		// 平移像素位移
+							  setting_kfGlobalWeight * setting_maxShiftWeightR * sqrtf((double)tres[2]) / (wG[0] + hG[0]) +		// TODO 旋转像素位移, 设置为0???
+							  setting_kfGlobalWeight * setting_maxShiftWeightRT * sqrtf((double)tres[3]) / (wG[0] + hG[0]) +	// 旋转+平移像素位移
+							  setting_kfGlobalWeight * setting_maxAffineWeight * fabs(logf((float)refToFh[0]));
 				// BRIGHTNESS CHECK
 				needToMakeKF = allFrameHistory.size() == 1 ||
-							   setting_kfGlobalWeight * setting_maxShiftWeightT * sqrtf((double)tres[1]) / (wG[0] + hG[0]) +		  // 平移像素位移
-									   setting_kfGlobalWeight * setting_maxShiftWeightR * sqrtf((double)tres[2]) / (wG[0] + hG[0]) +  // TODO 旋转像素位移, 设置为0???
-									   setting_kfGlobalWeight * setting_maxShiftWeightRT * sqrtf((double)tres[3]) / (wG[0] + hG[0]) + // 旋转+平移像素位移
-									   setting_kfGlobalWeight * setting_maxAffineWeight * fabs(logf((float)refToFh[0])) >
-								   1 ||										 // 光度变化大
-							   2 * coarseTracker->firstCoarseRMSE < tres[0]; // 误差能量变化太大(最初的两倍)
+							   delta > 1 ||										// 光度变化大
+							   2 * coarseTracker->firstCoarseRMSE < tres[0];	// 误差能量变化太大(最初的两倍)
 			}
 
 			for (IOWrap::Output3DWrapper *ow : outputWrapper)
